@@ -10,7 +10,7 @@ var my_words=null
 var original=null
 async function random_word()
 {
-    const response=await fetch("http://127.0.0.1:5500/words_list.json")
+    const response=await fetch("https://raw.githubusercontent.com/bprajeeth/StellarJS/main/words_list.json")
     my_words=await response.json()
     console.log(my_words.values)
     var rand_word = my_words.values[Math.floor(Math.random() * my_words.values.length)]
@@ -79,7 +79,7 @@ function check_true(word,row)
                 {
                     if(original[j] == word[i] && used[j]==0)
                     {
-                        console.log("inside 2");
+                        // console.log("inside 2");
                         box_val.style.backgroundColor="brown";  
                         used[j]=1;
                         colour=1;
@@ -99,29 +99,147 @@ function check_true(word,row)
 }    
 
 
+var row=0;
+var col=0;
+var word="";
+var check_val=0;
+//These functions are for the virtual keyboard on the screen
+function backspace()
+{
+    var name="Backspace";
+    if (name == 'Backspace' && col>0 &&(!check_val)) {
+        // document.getElementById('del').classList.add('bg-gray-300');
+        if(row==col/6 -1)
+        {
+            //console.log("row col == ",row," ",col)
+            //backspace(word);
+            var inp=document.getElementById(col);
+            inp.innerHTML="";
+            word=word.slice(0,word.length-1);
+            // console.log(word);
+            col--;
+        }
+        else if(col%6 != 0) //reason for this condition is to not go back to previous rows and delete that data
+        {
+
+            //console.log("row col == ",row," ",col)
+            //backspace(word);
+            var inp=document.getElementById(col);
+            inp.innerHTML="";
+            word=word.slice(0,word.length-1);
+            // console.log(word);
+            col--;
+
+        }
+    }    
+}
+
+function enter()
+{
+    var name="Enter";
+    if(word.length == 6)
+    {
+        if(name=='Enter')
+        {
+            // document.getElementById('enter').classList.add('bg-gray-300');
+            check_val=check_true(word,row);
+            // console.log(word);
+            if(check_val==1)
+            {
+                console.log("you've won");
+                popup(1);
+            }
+            if(check_val == 0)
+            {
+                row=row+1;
+                word="";
+            }  
+            if(row==5)
+            {
+                console.log("game lost");
+                popup(0);
+            }
+        }
+    }    
+}
+
+function letters(name)
+{
+    // console.log(name);
+    if(col<(row+1)*6 && name>="a" && name<="z")
+    {
+        name=name.toLocaleUpperCase();
+        //inp.innerHTML=`<p>${name}</p>`;
+        //addition(word);
+        var inp=document.getElementById(col+1);
+        //console.log("input = ",inp);
+        inp.innerHTML=name;
+        //console.log("id_val == ",col);
+        col++;
+        // console.log(col);
+        word=word+name;
+    } 
+}
+
+function popup(win)  //function to fire up the pop-up
+{
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    modal.style.display = "block";
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+    var modal_body=document.getElementById("modal-body");
+    if(win)
+    {
+        var modal_line=`<p class="flex items-center justify-center items-center font-bold text-3xl">Congratulations !!</p>`;
+    }
+    else{
+        var modal_line=`<p class="flex justify-center items-center font text-2xl">The correct word</p>`;
+        modal_line=modal_line+`<p class="flex  justify-center items-center font-bold text-4xl">${original}</p>`;
+    }
+    modal_body.innerHTML=modal_line;
+}
 
 
 var keyboard=['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','enter','z','x','c','v','b','n','m','del'];
 var line=`<div>`;
 for(var i=0;i<10;i++)
 {
-    line=line+`<button id="${keyboard[i]}" class="rounded-lg w-[3rem] h-[3rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-500">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="rounded-[5px] w-[4rem] h-[4rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
 }
 line=line+`</div><div class="ml-9">`;
 for(var i=10;i<19;i++)
 {
-    line=line+`<button id="${keyboard[i]}" class="rounded-lg w-[3rem] h-[3rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-500">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="rounded-[5px] w-[4rem] h-[4rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
 }
-line=line+`</div><div>`;
+line=line+`</div><div class="flex">`;
 for(var i=19;i<28;i++)
 {
-    if(keyboard[i]=="enter" || keyboard[i]=="del")
+    if(keyboard[i]=="enter")
     {
-    line=line+`<button id="${keyboard[i]}" class="rounded-lg w-[5rem] h-[3rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-500">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="rounded-[5px] w-[7rem] h-[4rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-300" onclick="enter()">${keyboard[i].toUpperCase()}</button>`;
+    }
+    else if(keyboard[i]=="del")
+    {
+        line=line+`<button id="${keyboard[i]}"class="flex-1 w-full rounded-[5px] h-[4rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-300" onclick="backspace()">${keyboard[i].toUpperCase()}</button>`;
     }
     else
     {
-    line=line+`<button id="${keyboard[i]}" class="rounded-lg w-[3rem] h-[3rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-500">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="rounded-[5px] w-[4rem] h-[4rem] border-2 border-gray-700 mx-1.5 my-1 hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
     }
 }
 line=line+`</div>`;
@@ -137,7 +255,7 @@ for(var i=0;i<5;i++)
 {
     for(var j=0;j<6;j++)
     {
-        box=box+`<div id="${id}" class="flex items-center justify-center bg-gray-300 w-[3.5rem] h-[3.5rem] px-[10px] py-[10px] m-1 text-xl font-medium"></div>`;
+        box=box+`<div id="${id}" class="flex items-center justify-center bg-gray-300 w-[4rem] h-[4rem] px-[10px] py-[10px] m-1 text-xl font-medium"></div>`;
         id=id+1;
     }
     if(i<4)
@@ -152,75 +270,8 @@ for(var i=0;i<5;i++)
 entry=document.getElementById("entry");
 entry.innerHTML=box;
 
-// //event listner for keys
-// document.addEventListener(
-//     'keydown',
-//     (event) => {
-//       var name = event.key;
-//       // Alert the key name and key code on keydown
-//       console.log(name);
-      
-//       if (name == 'Backspace') {
-//         //backspace(word);
-//       }
-//       else
-//       {
-//         inp.innerHTML=`<p>${name}</p>`;
-//         //addition(word);
-//       } 
-//     },
-//     false
-//   );   
 
-// for(var choice=0;choice<5;choice++)
-// {
-//     var x=6*choice+1;
-//     console.log("x == ",x);
-//     var id_val=x;
-//     var word="";
-//     while(id_val<=x+6)
-//     {
-//         var x=false;
-//         while(x==false)
-//         {
-//             //event listner for keys
-//             // document.addEventListener(
-//             //     'keydown',
-//             //     (event) => {
-//             //     var name = event.key;
-//             //     // Alert the key name and key code on keydown
-//             //     console.log(name);
-                
-//             //     if (name == 'Backspace') {
-//             //         //backspace(word);
-//             //         word=word.slice(0,word.length-1);
-//             //         console.log(word);
-//             //         id_val--;
-//             //         x=true;
-//             //     }
-//             //     else
-//             //     {
-//             //         //inp.innerHTML=`<p>${name}</p>`;
-//             //         //addition(word);
-//             //         console.log("id_val == ",id_val);
-//             //         var inp=document.getElementById(id_val);
-//             //         id_val++;
-//             //         console.log(id_val);
-//             //         word=word+name;
-//             //         x=true;
 
-//             //     } 
-//             //     },
-//             //     false
-//             // );   
-//         }
-//         id_val++;
-//     }
-//     }
-
-var row=0;
-var col=0;
-var word="";
 // console.log("outside row = col = ",row," ",col);
 // if((row+1)*6 == col)
 // {console.log("game ends");}
@@ -229,29 +280,29 @@ document.addEventListener(
     (event) => {
     var name = event.key;
     // Alert the key name and key code on keydown
-    console.log(name);
+    // console.log(name);
     
-    if (name == 'Backspace' && col>0 ) {
+    if (name == 'Backspace' && col>0 && !(check_val)) {
         document.getElementById('del').classList.add('bg-gray-300');
         if(row==col/6 -1)
         {
-            console.log("row col == ",row," ",col)
+            // console.log("row col == ",row," ",col)
             //backspace(word);
             var inp=document.getElementById(col);
             inp.innerHTML="";
             word=word.slice(0,word.length-1);
-            console.log(word);
+            // console.log(word);
             col--;
         }
         else if(col%6 != 0) //reason for this condition is to not go back to previous rows and delete that data
         {
 
-            console.log("row col == ",row," ",col)
+            // console.log("row col == ",row," ",col)
             //backspace(word);
             var inp=document.getElementById(col);
             inp.innerHTML="";
             word=word.slice(0,word.length-1);
-            console.log(word);
+            // console.log(word);
             col--;
 
         }
@@ -261,19 +312,25 @@ document.addEventListener(
         if(name=='Enter')
         {
             document.getElementById('enter').classList.add('bg-gray-300');
-            var check_val=check_true(word,row);
+            check_val=check_true(word,row);
             console.log(word);
             if(check_val==1)
             {
                 console.log("you've won");
+                popup(1);
             }
             if(check_val == 0)
             {
                 row=row+1;
                 word="";
-            }  
-            if((row)*6 == col)  
-            {console.log("game ends")}
+            }
+            
+            if(row==5)
+            {
+                console.log("game lost");
+                popup(0);
+            }
+            
         }
         // console.log(word);
         // row=row+1;
@@ -284,18 +341,18 @@ document.addEventListener(
         if(col<(row+1)*6 && name>="a" && name<="z")
         {
             document.getElementById(name).classList.add('bg-gray-300');    
-            console.log("inside else part row col =",row," ",col)    
+            //console.log("inside else part row col =",row," ",col)    
             name=name.toLocaleUpperCase();
             //inp.innerHTML=`<p>${name}</p>`;
             //addition(word);
             var inp=document.getElementById(col+1);
-            console.log("input = ",inp);
+            //console.log("input = ",inp);
             inp.innerHTML=name;
-            console.log("id_val == ",col);
+            //console.log("id_val == ",col);
             col++;
-            console.log(col);
+            // console.log(col);
             word=word+name;
-            console.log(word);
+            //console.log(word);
         }
         // else if(col+1 == (row+1)*6)
         // {   
@@ -325,7 +382,7 @@ document.addEventListener(
     {
         document.getElementById(name).classList.remove('bg-gray-300');
     }     
-    console.log("inside")    
+    // console.log("inside")    
     // highlight.style.backgroundColor="transparent"
     },
     false
