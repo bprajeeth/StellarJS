@@ -219,27 +219,27 @@ var keyboard=['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j
 var line=`<div>`;
 for(var i=0;i<10;i++)
 {
-    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[8.5vw] h-[16vw] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
 }
 line=line+`</div><div class="sm:ml-9 ml-4">`;
 for(var i=10;i<19;i++)
 {
-    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[8.5vw] h-[16vw] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
 }
 line=line+`</div><div class="flex">`;
 for(var i=19;i<28;i++)
 {
     if(keyboard[i]=="enter")
     {
-    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[4rem] h-[2rem] sm:w-[7rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="enter()">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[16vw] h-[16vw] sm:w-[7rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="enter()">${keyboard[i].toUpperCase()}</button>`;
     }
     else if(keyboard[i]=="del")
     {
-        line=line+`<button id="${keyboard[i]}"class="flex-1 w-full sm:rounded-[5px] rounded-[2.5px] h-[2rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="backspace()">${keyboard[i].toUpperCase()}</button>`;
+        line=line+`<button id="${keyboard[i]}"class="flex-1 w-full sm:rounded-[5px] rounded-[2.5px] h-[16vw] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="backspace()">${keyboard[i].toUpperCase()}</button>`;
     }
     else
     {
-    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
+    line=line+`<button id="${keyboard[i]}" class="sm:rounded-[5px] rounded-[2.5px] w-[8.5vw] h-[16vw] sm:w-[4rem] sm:h-[4rem] sm:border-2 border-[1px] border-gray-700 sm:mx-1.5 sm:my-1 mx-[2px] my-[2px] hover:bg-gray-300" onclick="letters(id)">${keyboard[i].toUpperCase()}</button>`;
     }
 }
 line=line+`</div>`;
@@ -255,7 +255,7 @@ for(var i=0;i<5;i++)
 {
     for(var j=0;j<6;j++)
     {
-        box=box+`<div id="${id}" class="flex items-center justify-center bg-gray-300 w-[3rem] h-[3rem] sm:w-[4rem] sm:h-[4rem] px-[10px] py-[10px] sm:m-1 m-[2px] text-xl font-medium"></div>`;
+        box=box+`<div id="${id}" class="flex items-center justify-center bg-gray-300 w-[15vw] h-[15vw] sm:w-[4rem] sm:h-[4rem] px-[10px] py-[10px] sm:m-1 m-[2px] text-xl font-medium"></div>`;
         id=id+1;
     }
     if(i<4)
