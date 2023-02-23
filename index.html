@@ -8,7 +8,8 @@
           display: none; /* Hidden by default */
           position: fixed; /* Stay in place */
           z-index: 1; /* Sit on top */
-          padding: 100px; /* Location of the box */
+          /* Location of the box */
+          padding: 200px 0 100px 0 ;
           left: 0;
           top: 0;
           width: 100%; /* Full width */
@@ -24,11 +25,13 @@
           background-color: rgba(254,254,254);
           opacity: 0.9;
           margin: auto;
-          padding: 0;
+          padding:0;
           border: 1px solid #888;
-          width: 40%;
-          min-height: 70%;
-          border-radius: 15px;
+          min-width: 30%; 
+          min-height: 40%;
+          max-height: 70%;
+          width: fit-content;
+          border-radius: 7px;
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
           -webkit-animation-name: animatetop;
           -webkit-animation-duration: 0.4s;
@@ -58,7 +61,7 @@
           padding: 5px;
           background-color: #5cb85c;
           color: white;
-          border-radius: 15px 15px 0 0;
+          border-radius: 7px 7px 0 0;
         }
 
         /* The Close Button */
@@ -92,7 +95,8 @@
     <meta name="keywords" content="wordle, word game, stellar, words, game, fun, brain, teaser">
     <meta name="description" content="A brain teser game that can be very fun to play!!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta property="og:image" content="assets\Animated_S.gif" />
+    <title>Stellar</title>
 </head>
 <body >
     <div class="flex flex-col gap-5 justify-center items-center h-screen w-full ">

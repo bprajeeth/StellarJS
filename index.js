@@ -205,10 +205,10 @@ function popup(win)  //function to fire up the pop-up
     var modal_body=document.getElementById("modal-body");
     if(win)
     {
-        var modal_line=`<p class="flex items-center justify-center font-bold text-3xl">Congratulations !!</p>`;
+        var modal_line=`<p class="flex justify-center pt-[1.5em] font-bold text-3xl">Congratulations!!</p>`;
     }
     else{
-        var modal_line=`<p class="flex justify-center items-center font text-2xl">The correct word</p>`;
+        var modal_line=`<p class="flex justify-center pt-[1em] font text-2xl">The correct word</p>`;
         modal_line=modal_line+`<p class="flex  justify-center items-center font-bold text-4xl">${original}</p>`;
     }
     modal_body.innerHTML=modal_line;
